@@ -1,0 +1,102 @@
+{% extends 'layout.html.twig'%}
+
+{% block title %}Nuevo Usuario{% endblock %}
+{% block body %}
+       <button type ="button" class ="btn btn-primary ms-3" data-ds-toggle="modal" data-ds-target="#staticBackdrop"> + Agregar </button> 
+      <div class="container">
+        <div class="row">
+            <div class="col-12" style="background-color:#95aae6">
+                <h1 id="tituloU">Usuarios</h1>
+            {% if codMsg is defined and codMsg !=""%}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>codMsg</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+            {% endif %}
+            </div>
+        </div>
+           <div class="row" style="background-color:#b4b4e7">
+            {% if usuarios != null %}
+             
+                <table class="table table-striped" id="demo" >
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido Paterno</th>
+                            <th scope="col">Apellido Materno</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead> 
+                    <tbody id="tbody">
+                    {% for usuario in usuarios %}
+                    <tr id="row-{{usuario.iduser}}">
+                        <td>{{ usuario.firstName }}</td>
+                        <td>{{ usuario.lastName }}</td>
+                        <td>{{usuario.lastName2 }}</td>
+                        <td>{{usuario.email }}</td>
+                        <td>{{usuario.phone }}</td>
+                      <td>  <button onclick="delete({{usuario.iduser}})" class="btn btn-danger">Eliminar</button>
+                        <a href="edituser{{usuario.iduser}}" class="btn btn-primary" class="btn btn-primary disabled" tabindex="-1" role="button" aria-disabled="true">Editar</a>  </td> 
+                    </tr> 
+                   {% endfor %}
+                   
+                    </tbody>
+                </table>
+            {% else %}
+             <p>Sin usuarios</p>
+            {% endif %}
+</div>
+    </div>
+
+   
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Formulario</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="contoller.php?option=addUser" id="form">
+                    <div class="modal-body">
+                        <div class="mb-3 row">
+                            <label for="nombre" class="col-sm-2 col-form-label">Nombre(s):</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="firstName" name="firstName" >
+                                <div class="invalid-feedback">Caracter inválido</div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="apellidoPaterno" class="col-sm-2 col-form-label">Apellido Paterno:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="lastName" name="lastName" >
+                                <div class="invalid-feedback">Caracter inválido</div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="apellidoMaterno" class="col-sm-2 col-form-label">Apellido Materno:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="lastName2" name="lastName2">
+                                <div class="invalid-feedback">Caracter inválido</div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="phone" name="phone" >
+                                <div class="invalid-feedback">10 Digitos</div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="correo" class="col-sm-2 col-form-label">Correo</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="email" name="email" onkeyup="validate(this.value, this.id,'C')">
+                                <div class="invalid-feedback">Correo inválido</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button onclick="addUser()" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

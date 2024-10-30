@@ -1,0 +1,33 @@
+<IfModule mod_headers.c>
+    # Always set these headers.
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"
+    Header always set Access-Control-Max-Age "1000"
+    Header always set Access-Control-Allow-Headers "x-requested-with, Content-Type, origin, authorization, accept, client-security-token"
+
+    # Added a rewrite to respond with a 200 SUCCESS on every OPTIONS request.
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^(.*)$ $1 [R=200,L]
+    php_value date.timezone 'America/Tijuana'
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+
+    # Check if the request is for an existing file or directory.
+    RewriteCond %{REQUEST_FILENAME} -s [OR]
+    RewriteCond %{REQUEST_FILENAME} -l [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+
+    # If it's an existing file or directory, do nothing.
+    RewriteRule ^ - [NC,L]
+
+    # Rewrite all other requests to index.php in the public directory.
+    RewriteRule ^(.*) index.php [NC,L]
+</IfModule>
+
+<IfModule mod_php5.c>
+    php_value max_execution_time 99999999999
+    php_value session.gc_maxlifetime 9999999999
+</IfModule>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}INICIO{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><text y='1.2em' font-size='96'>⚫️</text><text y='1.3em' x='0.2em' font-size='76' fill='#fff'>sf</text></svg>">
+    <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap-5.3.3/dist/css/bootstrap.min.css') }}">
+</head>
+<body>
+
+{% block header %}
+
+{% endblock %}
+
+{% block body %}
+<h1>Tabla de Usuarios</h1>
+<a href="{{ path('app_user_new') }}" type="button" class="btn btn-primary" >Crear nuevo</a>
+<table class="table">
+    <thead >
+        <tr class="table-dark" >
+        <div class="mb-3 row">
+                            <label for="nombre" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+            <th  >Id</th>
+            <th>Nombre</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th>Edición</th>
+            <th>Creación</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+    
+    {% for user in users %}
+        <tr class="table-secondary">
+            <td>{{ user.id }}</td>
+            <td>{{ user.nombre }}</td>
+            <td>{{ user.apellidoPaterno }}</td>
+            <td>{{ user.apellidoMaterno }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            <td>  
+
+                <a href="{{ path('app_user_edit', {'id': user.id}) }}" role="button" class="btn btn-light">Editar</a>
+                <a  href="{{ path('app_user_show', {'id': user.id}) }}"role="button" class="btn btn-success">Ver</a>
+
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="9" class="table-danger" >No records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
+
+{% block footer %}
+<footer style="background-color:#ceebff; color: black;">
+    <div class="container-fluid text-center">
+        <img src="/img/logo.jpg" alt="logo" width="80" height="55">
+        <h3>Contáctanos: 555608</h3>
+        <p>&copy; Derechos reservados</p>
+    </div>
+</footer>
+{% endblock %}
+
+<script src="{{ asset('bootstrap/bootstrap-5.3.3/dist/js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 8010:80
+    networks:
+      database: {}  
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - 33306:3306 
+    networks:
+      database: {}
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      database: {}
+    environment:
+      PMA_HOST: mysql
+      UPLOAD_LIMIT: 100M
+      PMA_ABSOLUTE_URI: ""
+    depends_on:
+      - mysql    
+
+
+volumes:
+  mysql-data:
+
+###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###
+networks:
+  optimo:
+    external: true
+  database:
+    
+    external: true

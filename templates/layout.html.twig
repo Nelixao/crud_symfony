@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}INICIOooo!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap-5.3.3/dist/css/bootstrap.min.css') }}">
+    </head>
+
+    <body>
+        {% block header %}
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid" style="background-color:#ceebff;">
+        <a class="navbar-brand" href="#">
+            <img src="/img/logo.jpg" alt="Company Logo" width="80" height="55">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#" aria-label="Go to Home">Inicio</a>
+                <a class="nav-link" href="#" aria-label="View Features">Historia</a>
+                <a class="nav-link" href="#" aria-label="View Pricing">Otros</a>
+            </div>
+        </div>
+    </div>
+</nav>
+        {% endblock %}
+
+        
+
+        {% block body %}
+        {% endblock %}
+
+        {% block footer %}
+        <footer style="background-color:#ceebff; color: black;">
+            <div class="container-fluid text-center">
+                <img src="/img/logo.jpg" alt="logo" width="80" height="55">
+                <h3>Contactanos: 555608$</h3>
+                <p>&copy; dserechos reservados</p>
+            </div>
+        </footer>
+        {% endblock %}
+
+        <script src="{{ asset('bootstrap/bootstrap-5.3.3/dist/js/bootstrap.bundle.min.js') }}"></script>
+    </body>
+</html>
